@@ -1,0 +1,75 @@
+PODS:
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - DFImageManager (2.0.1):
+    - DFImageManager/Core (= 2.0.1)
+    - DFImageManager/UI (= 2.0.1)
+  - DFImageManager/AFNetworking (2.0.1):
+    - AFNetworking/NSURLSession (~> 3.0)
+    - DFImageManager/Core
+  - DFImageManager/Core (2.0.1)
+  - DFImageManager/GIF (2.0.1):
+    - DFImageManager/Core
+    - DFImageManager/UI
+    - FLAnimatedImage (~> 1.0)
+  - DFImageManager/UI (2.0.1):
+    - DFImageManager/Core
+  - DFImageManager/WebP (2.0.1):
+    - DFImageManager/Core
+    - libwebp
+  - FLAnimatedImage (1.0.12)
+  - libwebp (0.5.1):
+    - libwebp/core (= 0.5.1)
+    - libwebp/dec (= 0.5.1)
+    - libwebp/demux (= 0.5.1)
+    - libwebp/dsp (= 0.5.1)
+    - libwebp/enc (= 0.5.1)
+    - libwebp/mux (= 0.5.1)
+    - libwebp/utils (= 0.5.1)
+    - libwebp/webp (= 0.5.1)
+  - libwebp/core (0.5.1):
+    - libwebp/webp
+  - libwebp/dec (0.5.1):
+    - libwebp/core
+  - libwebp/demux (0.5.1):
+    - libwebp/core
+  - libwebp/dsp (0.5.1):
+    - libwebp/core
+  - libwebp/enc (0.5.1):
+    - libwebp/core
+  - libwebp/mux (0.5.1):
+    - libwebp/core
+  - libwebp/utils (0.5.1):
+    - libwebp/core
+  - libwebp/webp (0.5.1)
+
+DEPENDENCIES:
+  - DFImageManager (from `https://github.com/arjunpa/DFImageManager.git`, commit `8e64a7a`)
+  - DFImageManager/AFNetworking (from `https://github.com/arjunpa/DFImageManager.git`, commit `8e64a7a`)
+  - DFImageManager/GIF (from `https://github.com/arjunpa/DFImageManager.git`, commit `8e64a7a`)
+  - DFImageManager/WebP (from `https://github.com/arjunpa/DFImageManager.git`, commit `8e64a7a`)
+
+EXTERNAL SOURCES:
+  DFImageManager:
+    :commit: 8e64a7a
+    :git: https://github.com/arjunpa/DFImageManager.git
+
+CHECKOUT OPTIONS:
+  DFImageManager:
+    :commit: 8e64a7a
+    :git: https://github.com/arjunpa/DFImageManager.git
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  DFImageManager: 43cc70c86ae0db910a01ae36c7f11470c96fc2e3
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  libwebp: b9126f8982a95370cf4eaad9bb3fefd57f052c15
+
+PODFILE CHECKSUM: 83ae11af207dd274c28af95c5d41a9963ddff6c5
+
+COCOAPODS: 1.2.0
