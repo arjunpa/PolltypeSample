@@ -172,12 +172,12 @@ class ResizableButton: UIButton {
             
             let mask = CAShapeLayer.init()
             mask.frame = self.bounds
-            let corners = [UIRectCorner.bottomLeft,.topLeft]
-            mask.path = UIBezierPath.init(roundedRect: mask.bounds, byRoundingCorners: corners, cornerRadii: CGSize.init(width: 10, height: 10))
+            mask.path = UIBezierPath.init(roundedRect: mask.bounds, byRoundingCorners: [.bottomLeft,.topLeft], cornerRadii: CGSize.init(width: 10, height: 10)).cgPath
+            self.percentageView.layer.mask = mask
             
-            
-            self.percentageView.layer.cornerRadius = 10
-            self.percentageView.clipsToBounds = true
+           // self.percentageView.layer.cornerRadius = 10
+            //self.percentageView.clipsToBounds = true
+            self.clipsToBounds = true
             
         }
      

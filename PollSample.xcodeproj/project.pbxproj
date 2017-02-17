@@ -22,7 +22,7 @@
 		C24FEC4F1E52360F005FE028 /* QSImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24FEC4E1E52360F005FE028 /* QSImageView.swift */; };
 		C24FEC531E523AD9005FE028 /* QSImageConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24FEC521E523AD9005FE028 /* QSImageConfig.swift */; };
 		C24FEC561E52E6EF005FE028 /* UIImage+ImageWithColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24FEC551E52E6EF005FE028 /* UIImage+ImageWithColor.swift */; };
-		C24FEC5A1E536822005FE028 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24FEC591E536822005FE028 /* UIColor.swift */; };
+		C24FEC5A1E536822005FE028 /* UIColor + Hex8bitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24FEC591E536822005FE028 /* UIColor + Hex8bitColor.swift */; };
 		C24FEC5E1E54DDD5005FE028 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24FEC5D1E54DDD5005FE028 /* WebViewController.swift */; };
 		C24FEC601E54DEA1005FE028 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C24FEC5F1E54DEA1005FE028 /* WebViewController.xib */; };
 		C273207C1E0E2CD100A8FBFB /* StoryPollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273207B1E0E2CD100A8FBFB /* StoryPollCell.swift */; };
@@ -50,7 +50,7 @@
 		C24FEC4E1E52360F005FE028 /* QSImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSImageView.swift; sourceTree = "<group>"; };
 		C24FEC521E523AD9005FE028 /* QSImageConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSImageConfig.swift; sourceTree = "<group>"; };
 		C24FEC551E52E6EF005FE028 /* UIImage+ImageWithColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageWithColor.swift"; sourceTree = "<group>"; };
-		C24FEC591E536822005FE028 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		C24FEC591E536822005FE028 /* UIColor + Hex8bitColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Hex8bitColor.swift"; sourceTree = "<group>"; };
 		C24FEC5D1E54DDD5005FE028 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C24FEC5F1E54DEA1005FE028 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		C273207B1E0E2CD100A8FBFB /* StoryPollCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPollCell.swift; sourceTree = "<group>"; };
@@ -106,6 +106,24 @@
 				C24FEC4E1E52360F005FE028 /* QSImageView.swift */,
 				C2303EFB1E0E2575008D546E /* AppDelegate.swift */,
 				C2303EFD1E0E2575008D546E /* ViewController.swift */,
+				C24F72791E570F7B00B16A08 /* PollType */,
+				C24FEC471E521BD2005FE028 /* SampleProtocol.swift */,
+				C24FEC491E521C84005FE028 /* Student.swift */,
+				C24FEC5D1E54DDD5005FE028 /* WebViewController.swift */,
+				C24FEC5F1E54DEA1005FE028 /* WebViewController.xib */,
+				C2303EFF1E0E2575008D546E /* Main.storyboard */,
+				C24FEC521E523AD9005FE028 /* QSImageConfig.swift */,
+				C24F72771E56F03900B16A08 /* UIView + RoundedCorners.swift */,
+				C2303F021E0E2575008D546E /* Assets.xcassets */,
+				C2303F041E0E2575008D546E /* LaunchScreen.storyboard */,
+				C2303F071E0E2575008D546E /* Info.plist */,
+			);
+			path = PollSample;
+			sourceTree = "<group>";
+		};
+		C24F72791E570F7B00B16A08 /* PollType */ = {
+			isa = PBXGroup;
+			children = (
 				C24F72751E56BBCD00B16A08 /* UICollectionView + CellVisibility.swift */,
 				C2B8056F1E5190F8003EA5D3 /* APIManager.swift */,
 				C2303F0D1E0E2587008D546E /* Poll.swift */,
@@ -115,19 +133,9 @@
 				C273207F1E0E4A6B00A8FBFB /* StoryPollCell.xib */,
 				C24F72731E5626EC00B16A08 /* StoryElement.swift */,
 				C273207D1E0E452E00A8FBFB /* ResizableButton.swift */,
-				C24FEC471E521BD2005FE028 /* SampleProtocol.swift */,
-				C24FEC491E521C84005FE028 /* Student.swift */,
-				C24FEC5D1E54DDD5005FE028 /* WebViewController.swift */,
-				C24FEC5F1E54DEA1005FE028 /* WebViewController.xib */,
-				C2303EFF1E0E2575008D546E /* Main.storyboard */,
-				C24FEC591E536822005FE028 /* UIColor.swift */,
-				C24FEC521E523AD9005FE028 /* QSImageConfig.swift */,
-				C24F72771E56F03900B16A08 /* UIView + RoundedCorners.swift */,
-				C2303F021E0E2575008D546E /* Assets.xcassets */,
-				C2303F041E0E2575008D546E /* LaunchScreen.storyboard */,
-				C2303F071E0E2575008D546E /* Info.plist */,
+				C24FEC591E536822005FE028 /* UIColor + Hex8bitColor.swift */,
 			);
-			path = PollSample;
+			name = PollType;
 			sourceTree = "<group>";
 		};
 		DD27D69E541900697BFCC6F5 /* Pods */ = {
@@ -276,7 +284,7 @@
 				C24FEC531E523AD9005FE028 /* QSImageConfig.swift in Sources */,
 				C24FEC4F1E52360F005FE028 /* QSImageView.swift in Sources */,
 				C24F72761E56BBCD00B16A08 /* UICollectionView + CellVisibility.swift in Sources */,
-				C24FEC5A1E536822005FE028 /* UIColor.swift in Sources */,
+				C24FEC5A1E536822005FE028 /* UIColor + Hex8bitColor.swift in Sources */,
 				C273207C1E0E2CD100A8FBFB /* StoryPollCell.swift in Sources */,
 				C24FEC5E1E54DDD5005FE028 /* WebViewController.swift in Sources */,
 				C24FEC481E521BD2005FE028 /* SampleProtocol.swift in Sources */,

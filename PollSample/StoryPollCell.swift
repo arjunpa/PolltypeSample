@@ -106,7 +106,7 @@ class StoryPollCell: UICollectionViewCell {
         else{
             //handle not loaded
             
-           
+            self.poll = nil
             let activityIndicatorView = UIActivityIndicatorView.init()
             activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
             activityIndicatorView.tag = 2000
@@ -153,7 +153,7 @@ class StoryPollCell: UICollectionViewCell {
         imageView.loadHeroImageAspectFit(poll.heroImageS3Key!, targetSize: CGSize.init(width: imageWidth, height: imageHeight))
         
         self.imageView.contentMode = .scaleToFill
-
+        self.imageView.backgroundColor = UIColor.white
     }
     
     
@@ -417,6 +417,8 @@ class StoryPollCell: UICollectionViewCell {
             return 0
         }
         
+       // return button.frame.width
+        
         let widthForOneVote = CGFloat(button.frame.width/100.0)
         return widthForOneVote * CGFloat(percentage)
         
@@ -611,6 +613,11 @@ class StoryPollCell: UICollectionViewCell {
 //                }
 //            }
 //        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.poll = nil
     }
     
     func preferredLayoutSizeFittingSize(_ targetSize:CGSize) -> CGSize{
