@@ -124,6 +124,7 @@ class StoryPollCell: UICollectionViewCell {
     }
     func configure(_ poll:Poll){
         self.poll = poll
+        self.poll.alwaysShowResult = false
         self.createContainer()
         self.createOpinions()
     }
@@ -286,8 +287,11 @@ class StoryPollCell: UICollectionViewCell {
             self.containerView.updateConstraintsIfNeeded()
             self.containerView.setNeedsLayout()
             self.containerView.layoutIfNeeded()
-            self.addGradiant(button: opinionButton, percentage: value.percentVotes)
-            self.addPercentage(opinionButton, percentage: value.percentVotes)
+            
+            if poll.votedOn != nil || poll.alwaysShowResult{
+                self.addGradiant(button: opinionButton, percentage: value.percentVotes)
+                self.addPercentage(opinionButton, percentage: value.percentVotes)
+            }
             self.addRadioButton(opinionButton: opinionButton)
            
             self.opinionButtons.append(opinionButton)

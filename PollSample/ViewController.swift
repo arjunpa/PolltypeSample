@@ -212,11 +212,30 @@ extension ViewController:StoryPollCellDelegate{
             
         //    if let index = self.models.index(where: {$0.pollID == polld?.id ?? -1}){
             
+            if let _ = error{
+                return
+            }
+            
             let someIndex = self.models.index(where: { (storyElement) -> Bool in
                 return storyElement.pollTypeID == polld?.id ?? 0
             })
             if let index = someIndex{
                 self.models[index].poll = polld!
+                
+                self.models = self.models.map({ (storyELement) -> StoryElement in
+                    
+                    storyELement.poll?.hasAccount = polld?.hasAccount ?? false
+                    return storyELement
+                })
+                
+                for value in Array(self.pollIndexPathMapping.values){
+                    
+                    if self.collection_view.cellIsVisible(forIndexPath: value){
+                        if let cell = self.collection_view.cellForItem(at: value) as? StoryPollCell{
+                            cell.poll.hasAccount = polld?.hasAccount ?? false
+                        }
+                    }
+                }
                 
                 if let indexpath = self.pollIndexPathMapping[poll.id]{
                    

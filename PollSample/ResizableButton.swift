@@ -19,11 +19,11 @@ class ResizableButton: UIButton {
         static let radioButtonColor = UIColor.init(hexColor: "#59c2ef")
     }
     
-    var percentageLabel:UILabel!
+    var percentageLabel:UILabel?
     var radioButton:UIButton!
     var isSelectedOpinion:Bool = false
     var isVotedOn:Bool = false
-    var percentageView:UIView!
+    var percentageView:UIView?
         // MARK: - Init
         
     
@@ -135,11 +135,12 @@ class ResizableButton: UIButton {
         
         if self.isVotedOn{
             //do additional things
-            self.percentageLabel.textColor = ColorConstants.selectionColor
+        
+            self.percentageLabel?.textColor = ColorConstants.selectionColor
             self.setTitleColor(ColorConstants.UnSelectionColor, for: .normal)
         }
         else{
-            self.percentageLabel.textColor = ColorConstants.UnSelectionColor
+            self.percentageLabel?.textColor = ColorConstants.UnSelectionColor
             self.setTitleColor(ColorConstants.selectionColor, for: .normal)
         }
     }
@@ -147,12 +148,14 @@ class ResizableButton: UIButton {
     func makeUnselected(){
         if self.isVotedOn{
             self.radioButton.backgroundColor = ColorConstants.radioButtonColor
-            self.percentageLabel.textColor = ColorConstants.selectionColor
+            self.percentageLabel?.textColor = ColorConstants.selectionColor
             self.setTitleColor(ColorConstants.UnSelectionColor, for: .normal)
             self.isSelectedOpinion = true
             return
         }
-        self.percentageLabel.textColor = ColorConstants.UnSelectionColor
+    
+            self.percentageLabel?.textColor = ColorConstants.UnSelectionColor
+        
         self.setTitleColor(ColorConstants.UnSelectionColor, for: .normal)
         self.isSelectedOpinion = false
         self.radioButton.backgroundColor = nil
@@ -168,18 +171,18 @@ class ResizableButton: UIButton {
         
         self.layer.cornerRadius = 10.0
         
-        if self.percentageView != nil{
+        
             
             let mask = CAShapeLayer.init()
             mask.frame = self.bounds
             mask.path = UIBezierPath.init(roundedRect: mask.bounds, byRoundingCorners: [.bottomLeft,.topLeft], cornerRadii: CGSize.init(width: 10, height: 10)).cgPath
-            self.percentageView.layer.mask = mask
+            self.percentageView?.layer.mask = mask
             
            // self.percentageView.layer.cornerRadius = 10
             //self.percentageView.clipsToBounds = true
             self.clipsToBounds = true
             
-        }
+        
      
     }
         

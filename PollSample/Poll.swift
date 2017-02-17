@@ -14,7 +14,7 @@ class Poll:NSObject{
     var hasQlitics:Bool = false
     var pollDescription:String?
     var votedOn:Int?
-    
+    var alwaysShowResult:Bool = false
     
     var id:Int!
     var question:String!

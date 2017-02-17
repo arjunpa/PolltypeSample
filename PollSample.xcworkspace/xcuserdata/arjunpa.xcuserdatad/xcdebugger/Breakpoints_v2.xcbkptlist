@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PollSample/ViewController.swift"
-            timestampString = "509004508.676723"
+            timestampString = "509042443.984615"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "webViewDidFinishLoad(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PollSample/ViewController.swift"
-            timestampString = "509004508.676723"
+            timestampString = "509042443.984615"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
             landmarkName = "ViewController"
             landmarkType = "4">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PollSample/ViewController.swift"
-            timestampString = "509004508.676723"
+            timestampString = "509042443.984615"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "vote(poll:opinionIndex:cell:)"
             landmarkType = "7">
          </BreakpointContent>

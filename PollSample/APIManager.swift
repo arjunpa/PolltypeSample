@@ -311,6 +311,15 @@ class APIManager: NSObject {
                     }
                     
                 }
+                
+                if let metadata = poll["metadata"] as? [String:Any]{
+                    if let options = metadata["options"] as? [String:Any]{
+                        
+                        if let showResults = options["always-show-results"] as? NSNumber{
+                            pollModel.alwaysShowResult = showResults.boolValue
+                        }
+                    }
+                }
             }
             
             completion(pollModel, nil)
