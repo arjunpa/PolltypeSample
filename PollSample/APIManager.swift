@@ -15,16 +15,44 @@ class APIManager: NSObject {
      static let POLLTYPEURL = "https://polltype-api.staging.quintype.io/api/polls/560"
     
     
+    fileprivate var pendingPolls:Array<Int> = []
     
+    fileprivate var fetchedPolls:Array<Int> = []
     
     public override init() {
         
     }
     
-    public func fetchPoll(completion:@escaping(_ poll:Poll?, Error?) -> Void){
+    
+    
+    public func isFetchingPoll(forID:Int) -> Bool{
+        if pendingPolls.contains(forID){
+            return true
+        }
         
-        URLSession.shared.dataTask(with: URL.init(string: APIManager.POLLTYPEURL)!) { (data, response, error) in
+        return false
+    }
+    
+    public func isFetchedPoll(forID:Int) -> Bool{
+        if fetchedPolls.contains(forID){
+            return true
+        }
+        
+        return false
+    }
+    
+    
+    
+    public func fetchPoll(pollID:Int, completion:@escaping(_ poll:Poll?, Error?) -> Void){
+        
+        if isFetchingPoll(forID: pollID) || isFetchedPoll(forID: pollID){
+            return
+        }
+        URLSession.shared.dataTask(with: URL.init(string: APIManager.BASEURL + "api/polls/" + "\(pollID)")!) { (data, response, error) in
             if let someError = error{
+                if let containsIndex = self.pendingPolls.index(of: pollID){
+                    self.pendingPolls.remove(at: containsIndex)
+                }
                 completion(nil, someError)
             }
             else{
@@ -32,9 +60,20 @@ class APIManager: NSObject {
                 do{
                     
                     let parsedObject = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
-                    self.startParse(data: parsedObject, completion: completion)
+                   // self.startParse(data: parsedObject, completion: completion)
+                    self.startParse(data: parsedObject, completion: { (poll, error) in
+                        
+                        if let containsIndex = self.pendingPolls.index(of: poll?.id ?? 0){
+                            self.pendingPolls.remove(at: containsIndex)
+                        }
+                        self.fetchedPolls.append(poll!.id)
+                        completion(poll,error)
+                    })
                 }
                 catch{
+                    if let containsIndex = self.pendingPolls.index(of: pollID){
+                        self.pendingPolls.remove(at: containsIndex)
+                    }
                     completion(nil, error)
                 }
             }

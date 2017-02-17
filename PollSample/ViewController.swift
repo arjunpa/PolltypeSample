@@ -10,12 +10,27 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var models:Array<Poll> = []
+    var models:Array<StoryElement> = []
     var sizingCell:Dictionary<String,UICollectionViewCell> = [:]
-    var api:APIManager!
+    
     var pollIndexPathMapping:[Int:IndexPath] = [:]
     typealias LOGIN_COMPLETION = () -> ()
     var loginCompletion:LOGIN_COMPLETION?
+    
+    var _api:APIManager?
+    
+    var api:APIManager{
+        get{
+            if _api == nil{
+                _api = APIManager.init()
+            }
+            return _api!
+        }
+        set{
+            _api = newValue
+        }
+    }
+    
     /*var loginWebView:UIWebView = {
         let webView = UIWebView.init()
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,10 +54,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var collection_view:UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        self.collection_view.delegate = self
+        self.collection_view.dataSource = self
         self.doRegistrations()
      //   self.createModel()
-        self.getPoll()
+      //  self.getPoll()
+        self.prepateModel()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -52,23 +69,52 @@ class ViewController: UIViewController {
     }
     
     func prepateModel(){
+        let pollIDs:[Int] = [560, 427, 454]
+        for i in 0..<3{
+            
+            let elem = StoryElement.init()
+            elem.pollTypeID = pollIDs[i]
+            self.models.append(elem)
+        }
         
     }
     
-    func getPoll(){
-         api = APIManager.init()
+    func getPoll(pollID:Int){
         
-        api.fetchPoll { (poll, error) in
+        
+   //     api.fetchPoll { (poll, error) in
+        api.fetchPoll(pollID:pollID) {[weak self] (poll, error) in
+            
             if let _ = error{
               
             }
             else{
-                self.models.append(poll!)
-                DispatchQueue.main.async(execute: { 
-                    self.collection_view.delegate = self
-                    self.collection_view.dataSource = self
-                    self.collection_view.reloadData()
+              //  self.models.append(poll!)
+                
+                guard let weakSelf = self else {return}
+                
+               weakSelf.models =  weakSelf.models.map({ (storyElement) -> StoryElement in
+                    
+                    if storyElement.pollTypeID == poll?.id{
+                        storyElement.poll = poll
+                    }
+                    return storyElement
                 })
+                
+                DispatchQueue.main.async(execute: {
+                    if let indexPath = weakSelf.pollIndexPathMapping[poll!.id]{
+                    
+                        if weakSelf.collection_view.cellIsVisible(forIndexPath: indexPath){
+                            self?.collection_view.reloadItems(at: [indexPath])
+                        }
+                    }
+                    
+                })
+                
+//                DispatchQueue.main.async(execute: { 
+//          
+//                    self.collection_view.reloadData()
+//                })
                 
             }
         }
@@ -76,7 +122,7 @@ class ViewController: UIViewController {
 
     func createModel(){
         
-        var opinions:[Opinion] = []
+   /*     var opinions:[Opinion] = []
         var strings = ["hhgfhffhhhfgfhghfgfhghggh", "ghghchghgghghhghgghcgchghcvhgggvggggghfggfhhfghfghfghffghghfgfffgghghffgffghghfgfghfgfgfgfghfgfghghgfhghfgfh", "bhhhbbhhbhhbhbhbbhh", "duiyiuiuughhhgjhjhjhhjhghhgjhghghhhj", "mlmmmllljnvjnnjjnjnjnjfdvnjjnvfjnfjnvfdjnnvjfnjvdjvnjnvjnjnvfjnvfvnfndfnjfnjrfnjrnrnnrfnrfjrnjfjrnjfrjfrnjrfnjfjnrnjrjnrfnjfrnmnmnmnmnmnmngjjhhhgghhgm,nmnnnnnnhuuuuhuhuhuhuuhuutfgffgfggfffgffttuhuuhhuuhuhuhuhhuhuhuhhuhuhuhuhu"]
         for i in 0..<5{
             let opinion = Opinion.init()
@@ -87,6 +133,7 @@ class ViewController: UIViewController {
         model.opinions = opinions
         model.question = "What is some of the greatest questions ever answered on the eve of christmas?"
         models.append(model)
+ */
     }
     
     func doRegistrations(){
@@ -101,8 +148,8 @@ extension ViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let sizingCell = self.sizingCell["StoryPollCell"] as! StoryPollCell
+      //  sizingCell.configure(models[indexPath.item])
         sizingCell.configure(models[indexPath.item])
-        
         let targetSize = CGSize.init(width: UIScreen.main.bounds.size.width, height: 0.5 * UIScreen.main.bounds.size.width)
         let size =  sizingCell.preferredLayoutSizeFittingSize(targetSize)
         
@@ -128,8 +175,11 @@ extension ViewController:UICollectionViewDataSource{
         cell.pollDelegate = self
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
+       // cell.configure(models[indexPath.item])
         cell.configure(models[indexPath.item])
-        pollIndexPathMapping[models[indexPath.item].id] = indexPath
+        pollIndexPathMapping[models[indexPath.item].pollTypeID] = indexPath
+        
+        self.getPoll(pollID: models[indexPath.item].pollTypeID)
         
         return cell
     }
@@ -160,8 +210,13 @@ extension ViewController:StoryPollCellDelegate{
         
         api.vote(poll: poll, opinionIndex: opinionIndex) { (polld, error) in
             
-            if let index = self.models.index(where: {$0.id == polld?.id}){
-                self.models[index] = polld!
+        //    if let index = self.models.index(where: {$0.pollID == polld?.id ?? -1}){
+            
+            let someIndex = self.models.index(where: { (storyElement) -> Bool in
+                return storyElement.pollTypeID == polld?.id ?? 0
+            })
+            if let index = someIndex{
+                self.models[index].poll = polld!
                 
                 if let indexpath = self.pollIndexPathMapping[poll.id]{
                    

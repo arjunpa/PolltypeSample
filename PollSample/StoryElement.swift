@@ -11,5 +11,9 @@ import Foundation
 class StoryElement{
     
     var pollTypeID:Int!
+    var poll:Poll?
     
+    init() {
+        
+    }
 }

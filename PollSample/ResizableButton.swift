@@ -23,6 +23,7 @@ class ResizableButton: UIButton {
     var radioButton:UIButton!
     var isSelectedOpinion:Bool = false
     var isVotedOn:Bool = false
+    var percentageView:UIView!
         // MARK: - Init
         
     
@@ -162,8 +163,24 @@ class ResizableButton: UIButton {
         if self.radioButton != nil{
             radioButton.layer.cornerRadius = radioButton.bounds.size.width/2
             radioButton.setImage(UIImage.image(ColorConstants.radioButtonColor), for: .selected)
+    
         }
         
+        self.layer.cornerRadius = 10.0
+        
+        if self.percentageView != nil{
+            
+            let mask = CAShapeLayer.init()
+            mask.frame = self.bounds
+            let corners = [UIRectCorner.bottomLeft,.topLeft]
+            mask.path = UIBezierPath.init(roundedRect: mask.bounds, byRoundingCorners: corners, cornerRadii: CGSize.init(width: 10, height: 10))
+            
+            
+            self.percentageView.layer.cornerRadius = 10
+            self.percentageView.clipsToBounds = true
+            
+        }
+     
     }
         
  }

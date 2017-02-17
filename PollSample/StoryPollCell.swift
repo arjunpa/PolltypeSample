@@ -23,6 +23,7 @@ class StoryPollCell: UICollectionViewCell {
         case container_TAG = 200
         case shareContainer_TAG = 300
         case poweredByText_TAG = 1000
+        case activityIndicator_TAG = 2000
     }
     
 
@@ -92,8 +93,34 @@ class StoryPollCell: UICollectionViewCell {
     
     
 
-    func configure(){
-    
+    func configure(_ storyElement:StoryElement){
+        
+        if let existingActivityIndicator = self.contentView.viewWithTag(2000) as? UIActivityIndicatorView{
+         
+            existingActivityIndicator.removeFromSuperview()
+        }
+        
+        if let polld = storyElement.poll{
+            self.configure(polld)
+        }
+        else{
+            //handle not loaded
+            
+           
+            let activityIndicatorView = UIActivityIndicatorView.init()
+            activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+            activityIndicatorView.tag = 2000
+            activityIndicatorView.hidesWhenStopped = true
+            activityIndicatorView.startAnimating()
+            activityIndicatorView.activityIndicatorViewStyle = .gray
+            self.contentView.addSubview(activityIndicatorView)
+            
+            let centerX = NSLayoutConstraint.init(item: activityIndicatorView, attribute: .centerX, relatedBy: .equal, toItem: self.contentView, attribute: .centerX, multiplier: 1.0, constant: 0)
+             let centerY = NSLayoutConstraint.init(item: activityIndicatorView, attribute: .centerY, relatedBy: .equal, toItem: self.contentView, attribute: .centerY, multiplier: 1.0, constant: 0)
+            
+            self.contentView.addConstraint(centerX)
+            self.contentView.addConstraint(centerY)
+        }
     }
     func configure(_ poll:Poll){
         self.poll = poll
@@ -154,7 +181,7 @@ class StoryPollCell: UICollectionViewCell {
     }
     
     func addDescription(){
-        self.poll.pollDescription = "hi"
+      //  self.poll.pollDescription = "hi"
         self.containerView.addSubview(pollDescription)
         let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(10)-[description]-(10)-|", options: [], metrics: nil, views: ["description":pollDescription])
         self.containerView.addConstraints(horizontalConstraints)
@@ -303,7 +330,7 @@ class StoryPollCell: UICollectionViewCell {
       //  viewd.backgroundColor = UIColor.init(red: 234.0/255.0, green: 242.0/155.0, blue: 249/255.0, alpha: 1.0)
         viewd.backgroundColor = UIColor.init(hexString: "#00EAF2F9")
         
-        
+        gradientButton.percentageView = viewd
      }
         
  }
@@ -357,6 +384,9 @@ class StoryPollCell: UICollectionViewCell {
 //        let bottomConstraint = NSLayoutConstraint.init(item: shareButton, attribute: .bottom, relatedBy: .equal, toItem: self.shareContainer, attribute: .bottom, multiplier: <#T##CGFloat#>, constant: <#T##CGFloat#>)
         
         let poweredByText = UIButton.init(type: .custom)
+        poweredByText.titleLabel?.numberOfLines = 0
+        poweredByText.titleLabel?.adjustsFontSizeToFitWidth = true
+        poweredByText.titleLabel?.lineBreakMode = .byClipping
         poweredByText.tag = Constants.poweredByText_TAG.rawValue
         poweredByText.translatesAutoresizingMaskIntoConstraints = false
         
@@ -374,7 +404,7 @@ class StoryPollCell: UICollectionViewCell {
         let poweredTrailingConstraint = NSLayoutConstraint.init(item: poweredByText, attribute: .trailing, relatedBy: .equal, toItem: shareContainer, attribute: .trailing, multiplier: 1.0, constant: -8)
         self.shareContainer.addConstraint(poweredTrailingConstraint)
         
-        let horizontalSpacingConstraint = NSLayoutConstraint.init(item: shareButton, attribute: .right, relatedBy: .greaterThanOrEqual, toItem: poweredByText, attribute: .left, multiplier: 1.0, constant: -50)
+        let horizontalSpacingConstraint = NSLayoutConstraint.init(item: shareButton, attribute: .right, relatedBy: .equal, toItem: poweredByText, attribute: .left, multiplier: 1.0, constant: -10)
         self.shareContainer.addConstraint(horizontalSpacingConstraint)
         
         let powredByHeightConstraint = NSLayoutConstraint.init(item: poweredByText, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30)
@@ -572,9 +602,22 @@ class StoryPollCell: UICollectionViewCell {
         if shareButton.superview != nil{
             shareButton.layer.cornerRadius = shareButton.frame.size.height/2
         }
+        
+//        for button in self.opinionButtons{
+//            button.layer.cornerRadius = 15.0
+//            if let resizableButton = button as? ResizableButton{
+//                if resizableButton.percentageView != nil{
+//                    resizableButton.percentageView.layer.cornerRadius = 15.0
+//                }
+//            }
+//        }
     }
     
     func preferredLayoutSizeFittingSize(_ targetSize:CGSize) -> CGSize{
+        
+        if self.poll == nil{
+            return CGSize.init(width: targetSize.width, height: 50)
+        }
         
         let widthConstraint = NSLayoutConstraint.init(item: self.contentView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: targetSize.width)
         widthConstraint.priority = 980
