@@ -9,15 +9,15 @@
 import Foundation
 import DFImageManager
 //// A custom version of image view for the sdk
-open class QSImageView : DFAnimatedImageView {
+public class QSImageView : DFAnimatedImageView {
     
     let cdn_image = "qt-staging-01.imgix.net"
     
-    open func loadHeroImageAspectFit(_ urlStr: String, targetSize: CGSize) {
+    public func loadHeroImageAspectFit(_ urlStr: String, targetSize: CGSize) {
    
         //hero images need focus point transformations
         self.image = nil
-        self.backgroundColor = UIColor.black
+        self.backgroundColor = UIColor.blackColor()
         self.allowsAnimations = false
         self.allowsGIFPlayback = true
         self.managesRequestPriorities = true
@@ -34,26 +34,27 @@ open class QSImageView : DFAnimatedImageView {
             url = QSImageConfig.init(baseURL: cdn_image).imageUrlFor(urlStr, height: Int(targetSize.height))
         }
         
-        let scale = UIScreen.main.scale
+        let scale = UIScreen.mainScreen().scale
         let scaledTargetSize = CGSize(width: targetSize.width * scale, height: targetSize.height * scale)
         
-        let request = DFImageRequest(resource: url, targetSize: scaledTargetSize, contentMode: DFImageContentMode.aspectFit, options: options.options)
+        let request = DFImageRequest(resource: url, targetSize: scaledTargetSize, contentMode: DFImageContentMode.AspectFit, options: options.options)
         /*if(story.heroImageMetadata != nil && story.heroImageMetadata.focusPoints != nil) {
             request.focusPoint = CGPoint(x: story.heroImageMetadata.focusPoints[0], y: story.heroImageMetadata.focusPoints[1])
             request.originalImageSize = CGSize(width: story.heroImageMetadata.width, height: story.heroImageMetadata.height)
         }
  */
-        setImageWith(request)
+       // setImageWith(request)
+        self.setImageWithRequest(request)
     }
 
   
     
-    open func loadImage(_ resource: URL?, targetSize: CGSize, contentMode: DFImageContentMode, options: DFImageRequestOptions?) {
+    public func loadImage(resource: NSURL?, targetSize: CGSize, contentMode: DFImageContentMode, options: DFImageRequestOptions?) {
         //expects target size to be non scaled, so scale target size
         self.managesRequestPriorities = true
         self.allowsAnimations = true
         self.allowsGIFPlayback = true
-        let scale = UIScreen.main.scale
+        let scale = UIScreen.mainScreen().scale
         let scaledTargetSize = CGSize(width: targetSize.width * scale, height: targetSize.height * scale)
         let optionsd = DFMutableImageRequestOptions()
         //optionsd.allowsClipping = true

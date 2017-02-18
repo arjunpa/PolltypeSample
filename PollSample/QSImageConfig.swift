@@ -10,7 +10,7 @@ import Foundation
 
 import UIKit
 
-open class QSImageConfig {
+public class QSImageConfig {
     static let widthFormat: String = "https://%@/%@?w=%d&q=%d&fm=jpeg";
     static let heightFormat: String = "https://%@/%@?h=%d&q=%d&fm=jpeg";
     static let jsonFormat: String = "https://%@/%@?fm=json";
@@ -19,14 +19,14 @@ open class QSImageConfig {
     static let maxGifSize: Int = 200
     
 
-    fileprivate var _baseUrl: String!
-    fileprivate var _quality: CGFloat = 30
+    private var _baseUrl: String!
+    private var _quality: CGFloat = 30
     
-    open static let imageQualityOptions = ["High", "Medium", "Low"]
+    public static let imageQualityOptions = ["High", "Medium", "Low"]
     
-    open static let highQualityFactor: CGFloat = 0.9
-    open static let mediumQualityFactor: CGFloat = 0.8
-    open static let lowQualityFactor: CGFloat = 0.7
+    public static let highQualityFactor: CGFloat = 0.9
+    public static let mediumQualityFactor: CGFloat = 0.8
+    public static let lowQualityFactor: CGFloat = 0.7
     
     var currentQualityFactor = QSImageConfig.lowQualityFactor
 
@@ -47,48 +47,48 @@ open class QSImageConfig {
         _baseUrl = baseURL
     }
     
-    open func imageUrlFor(_ heroImageS3Key: String, width: Int?) -> URL {
+    public func imageUrlFor(heroImageS3Key: String, width: Int?) -> NSURL {
         
         
         if let widthm = width{
-            var pixelWidth = Int(Float(UIScreen.main.scale) * Float(widthm))
+            var pixelWidth = Int(Float(UIScreen.mainScreen().scale) * Float(widthm))
             var format = QSImageConfig.widthFormat
             if(heroImageS3Key.hasSuffix(".gif")) {
                 format = QSImageConfig.widthFormatGif
                 pixelWidth = min(QSImageConfig.maxGifSize, pixelWidth)
             }
-            let str = String(format: format, _baseUrl, heroImageS3Key.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!, pixelWidth, Int(round(_quality * currentQualityFactor)))
-            let url = URL(string: str)
+            let str = String(format: format, _baseUrl, heroImageS3Key.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet())!, pixelWidth, Int(round(_quality * currentQualityFactor)))
+            let url = NSURL(string: str)
             return url!
             
         }
         
-        let str = "https://" + self._baseUrl + "/" + heroImageS3Key.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!
+        let str = "https://" + self._baseUrl + "/" + heroImageS3Key.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet())!
         
-        return URL(string: str)!
+        return NSURL(string: str)!
         
         
     }
     
-    open func imageUrlFor(_ heroImageS3Key: String, height: Int?) -> URL {
+    public func imageUrlFor(heroImageS3Key: String, height: Int?) -> NSURL {
         
         
         if let heightm = height{
-            var pixelWidth = Int(Float(UIScreen.main.scale) * Float(heightm))
+            var pixelWidth = Int(Float(UIScreen.mainScreen().scale) * Float(heightm))
             var format = QSImageConfig.heightFormat
             if(heroImageS3Key.hasSuffix(".gif")) {
                 format = QSImageConfig.heightFormatGif
                 pixelWidth = min(QSImageConfig.maxGifSize, pixelWidth)
             }
-            let str = String(format: format, _baseUrl, heroImageS3Key.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!, pixelWidth, Int(round(_quality * currentQualityFactor)))
-            let url = URL(string: str)
+            let str = String(format: format, _baseUrl, heroImageS3Key.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet())!, pixelWidth, Int(round(_quality * currentQualityFactor)))
+            let url = NSURL(string: str)
             return url!
             
         }
         
-        let str = "https://" + self._baseUrl + "/" + heroImageS3Key.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!
+        let str = "https://" + self._baseUrl + "/" + heroImageS3Key.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet())!
         
-        return URL(string: str)!
+        return NSURL(string: str)!
         
         
     }
@@ -140,19 +140,19 @@ open class QSImageConfig {
     */
 
     
-    open func isQualityHigh() -> Bool {
+    public func isQualityHigh() -> Bool {
         return currentQualityFactor == QSImageConfig.highQualityFactor
     }
     
-    open func isQualityMedium() -> Bool {
+    public func isQualityMedium() -> Bool {
         return currentQualityFactor == QSImageConfig.mediumQualityFactor
     }
     
-    open func isQualityLow() -> Bool{
+    public func isQualityLow() -> Bool{
         return currentQualityFactor == QSImageConfig.lowQualityFactor
     }
     
-    open func setQuality(_ quality: String) {
+    public func setQuality(_ quality: String) {
         switch quality {
         case "High":
             currentQualityFactor = QSImageConfig.highQualityFactor
@@ -163,7 +163,7 @@ open class QSImageConfig {
         }
            }
     
-    open func isCurrentQuality(_ quality: String) -> Bool {
+    public func isCurrentQuality(_ quality: String) -> Bool {
         switch quality {
         case "High":
             return currentQualityFactor == QSImageConfig.highQualityFactor

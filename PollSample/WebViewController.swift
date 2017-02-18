@@ -14,7 +14,7 @@ class WebViewController:UIViewController{
     override func viewDidLoad() {
     
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.red
+        self.view.backgroundColor = UIColor.redColor()
         print("presented controller")
     }
     func prepareToolBar(){

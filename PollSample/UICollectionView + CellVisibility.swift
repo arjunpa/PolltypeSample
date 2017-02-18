@@ -11,9 +11,9 @@ import UIKit
 
 extension UICollectionView{
 
-    func cellIsVisible(forIndexPath:IndexPath) -> Bool{
+    func cellIsVisible(forIndexPath:NSIndexPath) -> Bool{
         
-        if let _ = cellForItem(at: forIndexPath){
+        if let _ = cellForItemAtIndexPath(forIndexPath){
             return true
         }
         

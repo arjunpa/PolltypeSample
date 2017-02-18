@@ -16,7 +16,8 @@ extension UIImage{
         let rect = CGRect.init(x: 0, y: 0, width: 1.0, height: 1.0)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
-        context?.fill(rect)
+      //  context?.fill(rect)
+        CGContextFillRect(context, rect)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image!

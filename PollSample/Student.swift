@@ -23,7 +23,7 @@ struct Student:SampleProtocol {
     
     mutating func totalMark(){
         
-        podaPotta?.append("kasyap")
+     //   podaPotta?.append("kasyap")
         
 
        
