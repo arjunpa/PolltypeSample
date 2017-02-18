@@ -124,7 +124,7 @@ class StoryPollCell: UICollectionViewCell {
     }
     func configure(_ poll:Poll){
         self.poll = poll
-        self.poll.alwaysShowResult = false
+      //  self.poll.alwaysShowResult = false
         self.createContainer()
         self.createOpinions()
     }
